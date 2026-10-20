@@ -1,0 +1,272 @@
+/* ===== Базові налаштування ===== */
+
+:root {
+    color-scheme: dark;
+
+    --background: #080910;
+    --surface: #10121d;
+    --text: #f0f0ff;
+    --text-muted: #898ba8;
+
+    --neon: #a78bfa;
+    --neon-blue: #67e8f9;
+    --border: rgba(167, 139, 250, 0.3);
+
+    --radius: 14px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    min-height: 100%;
+    background: var(--background);
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    min-height: 100svh;
+
+    padding:
+        max(24px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) max(24px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left));
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background:
+        radial-gradient(ellipse at 50% 40%,
+            rgba(92, 55, 170, 0.10),
+            transparent 65%),
+        var(--background);
+
+    color: var(--text);
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* ===== Секції ===== */
+
+section {
+    width: 100%;
+    max-width: 420px;
+    margin: auto;
+
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+
+    animation: appear 0.25s ease-out;
+}
+
+/* Не дозволяємо стилям перезаписати hidden */
+
+section[hidden] {
+    display: none !important;
+}
+
+/* ===== Текст ===== */
+
+p {
+    margin: 0 0 28px;
+
+    color: var(--text);
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 1.6;
+    letter-spacing: 0.2px;
+
+    overflow-wrap: anywhere;
+}
+
+#home p {
+    margin-bottom: 32px;
+
+    font-size: clamp(28px, 7vw, 36px);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.8px;
+    text-align: center;
+    padding-top: 10%;
+}
+
+#home img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+}
+
+#menu>p {
+    color: var(--text-muted);
+    font-size: 14px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+/* ===== Кнопки ===== */
+
+button {
+    position: relative;
+    width: 100%;
+    min-height: 54px;
+    padding: 15px 18px;
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+
+    background: var(--surface);
+    color: var(--text);
+
+    font: inherit;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.4;
+    text-align: center;
+
+    cursor: pointer;
+    touch-action: manipulation;
+
+    transition:
+        background 0.18s ease,
+        border-color 0.18s ease,
+        box-shadow 0.18s ease,
+        transform 0.18s ease;
+
+    overflow-wrap: anywhere;
+}
+
+/* Головна кнопка та кнопка діалогу */
+
+#startButton,
+#dialogueButton {
+    border-color: rgba(167, 139, 250, 0.65);
+
+    background:
+        linear-gradient(135deg,
+            rgba(167, 139, 250, 0.16),
+            rgba(103, 232, 249, 0.06));
+
+    box-shadow:
+        inset 0 0 18px rgba(167, 139, 250, 0.04),
+        0 0 18px rgba(167, 139, 250, 0.05);
+}
+
+/* Список сценаріїв */
+
+#scenarioButtons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+#scenarioButtons button {
+    text-align: left;
+}
+
+/* ===== Взаємодія ===== */
+
+@media (hover: hover) and (pointer: fine) {
+    button:hover {
+        border-color: var(--neon);
+
+        box-shadow:
+            0 0 16px rgba(167, 139, 250, 0.12);
+
+        background-color: #171827;
+    }
+}
+
+button:active {
+    transform: scale(0.98);
+
+    border-color: var(--neon-blue);
+
+    box-shadow:
+        0 0 20px rgba(103, 232, 249, 0.12);
+}
+
+button:focus-visible {
+    outline: 2px solid var(--neon-blue);
+    outline-offset: 4px;
+}
+
+#home h1 {
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+/* ===== Адаптація під телефон ===== */
+
+@media (max-width: 480px) {
+    body {
+        padding-right: max(22px, env(safe-area-inset-right));
+        padding-left: max(22px, env(safe-area-inset-left));
+    }
+
+    button {
+        min-height: 56px;
+        font-size: 16px;
+    }
+
+    #scenarioButtons {
+        gap: 14px;
+    }
+
+    p {
+        font-size: 17px;
+    }
+}
+
+/* Невеликі екрани */
+
+@media (max-height: 600px) {
+    body {
+        align-items: flex-start;
+    }
+
+    section {
+        margin-top: 16px;
+        margin-bottom: 16px;
+    }
+
+    p {
+        margin-bottom: 18px;
+    }
+
+    #home p {
+        margin-bottom: 24px;
+    }
+}
+
+/* ===== Поява контенту ===== */
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}
